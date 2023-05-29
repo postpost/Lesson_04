@@ -7,8 +7,8 @@ class Address {
 private:
 	std::string cityName;
 	std::string streetName;
-	unsigned houseNum;
-	unsigned flatNum;
+	unsigned int houseNum;
+	unsigned int flatNum;
 
 public:
 	Address(std::string cityName, std::string streetName, unsigned houseNum, unsigned flatNum) {
@@ -27,25 +27,39 @@ public:
 		this->flatNum = 0;
 	}
 
-	// Methods
+	// Get
+	std::string getCityName() {
+		return cityName;
+	}
 
-	std::string SaveData(Address* address, int addressCount) {
-		
-		std::string str;
-		std::string new_str;
+	std::string getStreetName() {
+		return streetName;
+	}
+	unsigned int getHouseNum() {
+		return houseNum;
+	}
+	unsigned int getFlatNum() {
+		return flatNum;
+	}
 
-		for (int i = addressCount-1; i >= 0; i--) {
-				str = address[i].cityName + ", " +
-					address[i].streetName + ", " +
-				std::to_string(address[i].houseNum) + ", " +
-				std::to_string(address[i].flatNum) + "\n";
-				new_str += str;
-		}
-			
-			return new_str;
-		}
+
 };
 
+std::string SaveData(Address* address, int addressCount) {
+
+	std::string str;
+	std::string new_str;
+
+	for (int i = addressCount - 1; i >= 0; i--) {
+		str = address[i].getCityName() + ", " +
+			address[i].getStreetName() + ", " +
+			std::to_string(address[i].getHouseNum()) + ", " +
+			std::to_string(address[i].getFlatNum()) + "\n";
+		new_str += str;
+	}
+
+	return new_str;
+}
 
 int main() {
 
@@ -63,8 +77,8 @@ int main() {
 	//create var for each field
 	std::string cityName;
 	std::string streetName;
-	unsigned houseNum;
-	unsigned flatNum;
+	unsigned int houseNum;
+	unsigned int flatNum;
 
 	std::string new_str; //to store data from class Address
 			
@@ -79,13 +93,13 @@ int main() {
 			fin >> houseNum;
 			fin >> flatNum;
 			address[i] = Address(cityName, streetName, houseNum, flatNum);
-			new_str = address->SaveData(address, addressCount);
+			new_str = SaveData(address, addressCount);
 		}
 	}
 	
 	fin.close();
 
-	std::ofstream fout ("out.txt", std:: ios:: app);
+	std::ofstream fout ("out.txt", std:: ios:: out);
 	fout << buf <<'\n' << new_str << std::endl;
 	
 	fout.close();

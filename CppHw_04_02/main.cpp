@@ -7,8 +7,8 @@ class Address {
 private:
 	std::string cityName;
 	std::string streetName;
-	unsigned houseNum;
-	unsigned flatNum;
+	unsigned int houseNum;
+	unsigned int flatNum;
 
 public:
 
@@ -26,53 +26,62 @@ public:
 		this->flatNum = flatNum;
 	}
 
-	std::string SaveTostring(Address* address, int addressCount) {
-		std::string str;
-		std::string new_str;
-
-		for (int i = 0; i < addressCount; i++) {
-			str = address[i].cityName + ", "
-				+ address[i].streetName + ", "
-				+ std::to_string(address[i].houseNum) + ", "
-				+ std::to_string(address[i].flatNum) + '\n';
-			new_str += str;
-		}
-		return new_str;
+	//Get
+	std::string getCityName() {
+		return cityName;
 	}
 
-	void Sort(Address* address, int addressCount) {
-
-		std::string new_str;
-		std::string sorted_str;
-
-		// array to collect first letters of the cities
-		char* letter = new char [addressCount];
-			for (int i = 0; i < addressCount; i++) {
-				new_str = address[i].cityName;
-				letter[i] = new_str[0];
-			}
-		
-		// bubble sort
-		for (int i = 0; i < addressCount; ++i) {
-			for (int j = 0; j < addressCount - 1; ++j) {
-					if (letter[j] > letter[j + 1]) {
-					std::swap(letter[j], letter[j + 1]);
-					std::swap(address[j], address[j + 1]);
-					}
-			}
-		}
-		// return sorted array:  
-		/*for (int i = 0; i < addressCount; i++) {
-			std::cout << '\n' << letter[i] << "-";
-		}
-
-		for (int i = 0; i < addressCount; i++) {
-			std::cout << '\n' << address[i].cityName << "-";
-		}*/
-		delete[] letter;
+	std::string getStreetName() {
+		return streetName;
 	}
-	
+
+	unsigned int getHouseNum() {
+		return houseNum;
+	}
+
+	unsigned int getFlatNum() {
+		return flatNum;
+	}
+
 };
+
+std::string SaveTostring(Address* address, int addressCount) {
+	std::string str;
+	std::string new_str;
+
+	for (int i = 0; i < addressCount; i++) {
+		str = address[i].getCityName() + ", "
+			+ address[i].getStreetName() + ", "
+			+ std::to_string(address[i].getHouseNum()) + ", "
+			+ std::to_string(address[i].getFlatNum()) + '\n';
+		new_str += str;
+	}
+	return new_str;
+}
+
+void Sort(Address* address, int addressCount) {
+
+	std::string new_str;
+	std::string sorted_str;
+
+	// array to collect first letters of the cities
+	//char* letter = new char[addressCount];
+	for (int i = 0; i < addressCount; i++) {
+		new_str = address[i].getCityName();
+		//letter[i] = new_str[0];
+	}
+
+	// bubble sort
+	for (int i = 0; i < addressCount; ++i) {
+		for (int j = 0; j < addressCount - 1; ++j) {
+			if (address[j].getCityName() > address[j + 1].getCityName()) {
+				//std::swap(letter[j], letter[j + 1]);
+				std::swap(address[j], address[j + 1]);
+			}
+		}
+	}
+	//delete[] letter;
+}
 
 int main() {
 
@@ -108,7 +117,7 @@ int main() {
 			fin >> flatNum;
 
 			address[i] = Address(cityName, streetName, houseNum, flatNum);
-			str = address[i].SaveTostring(address, addressCount);
+			str = SaveTostring(address, addressCount);
 		}
 	}
 	fin.close();
@@ -117,10 +126,10 @@ int main() {
 
 	std::string new_str;
 
-	address->Sort(address, addressCount);
-	new_str = address->SaveTostring(address, addressCount);
+	Sort(address, addressCount);
+	new_str = SaveTostring(address, addressCount);
 
-	std::ofstream fout("out.txt", std::ios::app);
+	std::ofstream fout("out.txt", std::ios::out);
 	fout << buf << '\n' << new_str;
 	fout.close();
 	
