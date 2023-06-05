@@ -61,16 +61,6 @@ std::string SaveTostring(Address* address, int addressCount) {
 
 void Sort(Address* address, int addressCount) {
 
-	std::string new_str;
-	std::string sorted_str;
-
-	// array to collect first letters of the cities
-	//char* letter = new char[addressCount];
-	for (int i = 0; i < addressCount; i++) {
-		new_str = address[i].getCityName();
-		//letter[i] = new_str[0];
-	}
-
 	// bubble sort
 	for (int i = 0; i < addressCount; ++i) {
 		for (int j = 0; j < addressCount - 1; ++j) {
@@ -80,7 +70,6 @@ void Sort(Address* address, int addressCount) {
 			}
 		}
 	}
-	//delete[] letter;
 }
 
 int main() {
@@ -101,7 +90,7 @@ int main() {
 	unsigned houseNum;
 	unsigned flatNum;
 
-	std::string str;
+	//std::string str;
 
 	if (!fin.is_open()) {
 
@@ -117,7 +106,7 @@ int main() {
 			fin >> flatNum;
 
 			address[i] = Address(cityName, streetName, houseNum, flatNum);
-			str = SaveTostring(address, addressCount);
+			//str = SaveTostring(address, addressCount);
 		}
 	}
 	fin.close();
